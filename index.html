@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja" data-base="./">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ひとり組版｜小説の原稿を貼るだけで、縦書きの本文PDFに（同人誌・文学フリマ・無料）</title>
+<meta name="description" content="同人誌や文学フリマの小説本の「本文」を作る無料のWebツール。原稿を貼るだけで、禁則処理・ルビ・縦中横・三点リーダー・ノンブル・目次・奥付までそろった縦書きのPDFになります。文庫・新書・B6・A5、2段組にも対応。原稿は端末の外に送りません。">
+<link rel="canonical" href="https://popopo-bug.github.io/hitori-kumihan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ひとり組版">
+<meta property="og:title" content="ひとり組版 — 小説の原稿を貼るだけで、入稿できる縦書きPDFに">
+<meta property="og:description" content="同人誌や文学フリマの小説本の「本文」を作る無料のWebツール。原稿を貼るだけで、禁則処理・ルビ・縦中横・三点リーダー・ノンブル・目次・奥付までそろった縦書きのPDFになります。文庫・新書・B6・A5、2段組にも対応。原稿は端末の外に送りません。">
+<meta property="og:url" content="https://popopo-bug.github.io/hitori-kumihan/">
+<meta property="og:image" content="https://popopo-bug.github.io/hitori-kumihan/og/default.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f3b6f">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="icon" href="./icons/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="./assets/style.css?v=9aaf62687d">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"ひとり組版","url":"https://popopo-bug.github.io/hitori-kumihan/","inLanguage":"ja"},{"@type":"WebApplication","name":"ひとり組版","url":"https://popopo-bug.github.io/hitori-kumihan/","applicationCategory":"DesignApplication","operatingSystem":"Web","inLanguage":"ja","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"description":"同人誌や文学フリマの小説本の「本文」を作る無料のWebツール。原稿を貼るだけで、禁則処理・ルビ・縦中横・三点リーダー・ノンブル・目次・奥付までそろった縦書きのPDFになります。文庫・新書・B6・A5、2段組にも対応。原稿は端末の外に送りません。"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"本当に無料ですか？","acceptedAnswer":{"@type":"Answer","text":"はい。組版とプレビューはすべて無料で使えます。PDFは32ページまで無料で作れます。それより長い本は、買い切りの「ひとり組版 Pro」をご利用ください。"}},{"@type":"Question","name":"原稿はどこかに送られますか？","acceptedAnswer":{"@type":"Answer","text":"送られません。組版はお使いのブラウザの中だけで行い、原稿は端末の中（ブラウザの保存領域）にだけ保存します。"}},{"@type":"Question","name":"どの印刷所に入稿できますか？","acceptedAnswer":{"@type":"Answer","text":"多くの同人誌印刷所は、フォントを埋め込んだPDFでの本文入稿を受け付けています。ひとり組版のPDFはフォントが埋め込まれ、ページの大きさは判型どおり（塗り足し3mmも付けられます）です。印刷所ごとに、余白・ノンブル・ページ数・ファイルの分け方などの決まりがあるので、入稿の前に必ず各印刷所の入稿ガイドを確かめてください。"}},{"@type":"Question","name":"表紙も作れますか？","acceptedAnswer":{"@type":"Answer","text":"表紙は作れません。本文（中身のページ）を作る道具です。表紙の背の幅は「背幅の計算」で目安を出せます。"}},{"@type":"Question","name":"Word や pixiv の原稿をそのまま使えますか？","acceptedAnswer":{"@type":"Answer","text":"テキストにして貼りつけてください。Word は「名前を付けて保存」でテキスト形式にできます。pixiv・小説家になろう・カクヨム・青空文庫のルビや改ページの書き方は、そのまま読み取ります。"}},{"@type":"Question","name":"スマホでも使えますか？","acceptedAnswer":{"@type":"Answer","text":"使えます（原稿・設定・プレビューをタブで切り替えます）。ただしPDFを作るのはパソコンの Chrome か Edge がおすすめです。Safari は用紙の大きさを守らないことがあります。"}}]}]}</script>
+</head>
+<body data-page="home">
+<a class="skip" href="#main">本文へスキップ</a>
+<header class="site-header">
+  <div class="wrap wrap-wide hd">
+    <a class="brand" href="./"><img src="./favicon.svg" alt="" width="28" height="28"><span>ひとり組版</span></a>
+    <button type="button" class="btn btn-ghost btn-sm nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
+    <nav id="site-nav" class="nav" aria-label="メインメニュー">
+      <a href="./" aria-current="page">本文を組む</a>
+      <a href="./tools/sehaba/">背幅の計算</a>
+      <a href="./guide/kakikata/">原稿の書き方</a>
+      <a href="./guide/doujin/">本の作り方</a>
+      <a href="./guide/">解説</a>
+      <a class="nav-pro" href="./pro/">Pro版</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero-mini wrap wrap-wide">
+  <h1>小説の原稿を貼るだけで、入稿できる縦書きの本文PDFに</h1>
+  <p class="lead">同人誌・文学フリマの小説本の「本文」を作る道具です。禁則処理・ルビ・縦中横・ノンブル・目次・奥付まで、印刷所に出せる形に組みます。</p>
+  <ul class="pills"><li>無料・登録不要</li><li>原稿は外に送らない</li><li>文庫・新書・B6・A5・2段組</li><li>pixiv・なろう・カクヨムのルビ記法</li></ul>
+</section>
+
+<section class="wrap wrap-wide">
+  <div data-app="kumihan"><noscript><p>JavaScript を有効にしてください。</p></noscript><p style="padding:40px;text-align:center;color:var(--text-3)">読み込み中…</p></div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="sec-h">使い方</h2>
+    <ol class="steps">
+      <li><b>原稿を貼る</b>テキストを貼るか、テキストファイルを開きます。1行が1段落です。</li>
+      <li><b>判型を選ぶ</b>文庫・新書・B6・A5 などを選ぶと、字数と行数が入ります。余白とページ数を見ながら調整します。</li>
+      <li><b>PDFを作る</b>印刷の画面で「PDFに保存」を選べば、入稿用の本文PDFができます。</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <h2 class="sec-h">自動でととのえること</h2>
+    <div class="feature-grid">
+      <div class="feature"><b>禁則処理とぶら下げ</b><p>「。」「」」や小さい「っ」を行の頭に置きません。句読点は行末の外にぶら下げ、送った行は字間を広げて行末をそろえます。</p></div>
+      <div class="feature"><b>ルビ・傍点</b><p><code>｜漢字《かんじ》</code> や pixiv の <code>[[rb:…]]</code>、カクヨムの傍点 <code>《《…》》</code> をそのまま読みます。長いルビは親文字を広げて配ります。</p></div>
+      <div class="feature"><b>縦中横・記号</b><p>2けたの数字と「!?」は縦中横に。三点リーダー・ダッシュは2つずつ、「！？」のあとには全角スペースを入れます（設定で切れます）。</p></div>
+      <div class="feature"><b>ノンブル・柱・目次・奥付</b><p>ページ番号、扉や白ページの隠しノンブル、章の見出しからの目次、最後のページの奥付まで。総ページ数は4の倍数にそろえます。</p></div>
+    </div>
+    <p class="hint">くわしい書き方は <a href="./guide/kakikata/">縦書きの原稿の書き方</a>、本づくりの流れは <a href="./guide/doujin/">小説の同人誌の作り方</a> をどうぞ。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="sec-h">長い本は「ひとり組版 Pro」で</h2>
+    <p class="sec-lead">無料版のPDFは32ページまでです。Pro版はページ数の上限がなく、原稿をいくつも保存でき、ネットにつながっていなくても動きます。買い切りで、BOOTHで販売しています。</p>
+    <div class="cta-row"><a class="btn btn-accent" href="./pro/">Pro版を見る</a> <a class="btn" href="./tools/sehaba/">背幅の計算</a></div>
+    <section class="faq"><h2 id="faq">よくある質問</h2><details><summary>本当に無料ですか？</summary><div class="a"><p>はい。組版とプレビューはすべて無料で使えます。PDFは32ページまで無料で作れます。それより長い本は、買い切りの「ひとり組版 Pro」をご利用ください。</p></div></details><details><summary>原稿はどこかに送られますか？</summary><div class="a"><p>送られません。組版はお使いのブラウザの中だけで行い、原稿は端末の中（ブラウザの保存領域）にだけ保存します。</p></div></details><details><summary>どの印刷所に入稿できますか？</summary><div class="a"><p>多くの同人誌印刷所は、フォントを埋め込んだPDFでの本文入稿を受け付けています。ひとり組版のPDFはフォントが埋め込まれ、ページの大きさは判型どおり（塗り足し3mmも付けられます）です。印刷所ごとに、余白・ノンブル・ページ数・ファイルの分け方などの決まりがあるので、入稿の前に必ず各印刷所の入稿ガイドを確かめてください。</p></div></details><details><summary>表紙も作れますか？</summary><div class="a"><p>表紙は作れません。本文（中身のページ）を作る道具です。表紙の背の幅は「背幅の計算」で目安を出せます。</p></div></details><details><summary>Word や pixiv の原稿をそのまま使えますか？</summary><div class="a"><p>テキストにして貼りつけてください。Word は「名前を付けて保存」でテキスト形式にできます。pixiv・小説家になろう・カクヨム・青空文庫のルビや改ページの書き方は、そのまま読み取ります。</p></div></details><details><summary>スマホでも使えますか？</summary><div class="a"><p>使えます（原稿・設定・プレビューをタブで切り替えます）。ただしPDFを作るのはパソコンの Chrome か Edge がおすすめです。Safari は用紙の大きさを守らないことがあります。</p></div></details></section>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="./favicon.svg" alt="" width="24" height="24"><span>ひとり組版</span></a>
+    <div class="ft-cols">
+      <div><h4>道具</h4><ul>
+        <li><a href="./">本文を組む（縦書きPDF）</a></li>
+        <li><a href="./tools/sehaba/">背幅の計算</a></li>
+        <li><a href="./pro/">ひとり組版 Pro（買い切り・オフライン）</a></li>
+      </ul></div>
+      <div><h4>解説</h4><ul>
+        <li><a href="./guide/doujin/">小説の同人誌の作り方（本文の入稿まで）</a></li>
+        <li><a href="./guide/kakikata/">縦書きの原稿の書き方と記号のルール</a></li>
+        <li><a href="./guide/hangata/">文庫・新書・B6・A5の字数と行数</a></li>
+        <li><a href="./guide/nombre/">ノンブル・隠しノンブル・奥付・ページ数</a></li>
+      </ul></div>
+      <div><h4>このサイトについて</h4><ul>
+        <li><a href="./about/">運営者情報・お問い合わせ</a></li>
+        <li><a href="./privacy/">プライバシーポリシー</a></li>
+      </ul></div>
+      <div><h4>まめ帳場の道具</h4><ul>
+        <li><a href="https://popopo-bug.github.io/hitori-seikyu/">ひとり請求書</a></li><li><a href="https://popopo-bug.github.io/hitori-chobo/">ひとり帳簿</a></li>
+      </ul></div>
+    </div>
+    <p class="ft-note">原稿は、お使いのブラウザの中（端末内）だけで組版され、当サイトのサーバーへ送信されることはありません。入稿の前には、印刷所の入稿ガイド（判型・余白・ページ数・ファイル形式）を必ずご確認ください。</p>
+    <p class="ft-copy">© 2026 まめ帳場</p>
+  </div>
+</footer>
+<script>window.HK_CONFIG = {"siteName":"ひとり組版","proUrl":"","trialUrl":"","proPrice":"1,480円（発売記念 980円）","freeLimit":32,"adsenseClient":"","adsenseSlots":{"content":"","footer":""},"affiliates":{},"contactUrl":"","siteUrl":"https://popopo-bug.github.io/hitori-kumihan/"};</script>
+<script src="./assets/app.js?v=9aaf62687d" defer></script>
+</body>
+</html>
