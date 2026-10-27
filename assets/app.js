@@ -832,6 +832,14 @@
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const chars = (s) => Array.from(s || '');
 
+  // 傍点（ゴマ点）。CSS の text-emphasis は点の場所を字の枠の中に取って字を左へ押し出すので使わず、
+  // ルビと同じく行の右（半分の幅）に点を描く。フォントの「﹅」は字形の位置がフォントごとに違う（上に寄る）ので、
+  // ゴマの形を SVG で描いて、字の真横の中央に置く。句読点・かっこには付けない
+  const NO_DOT = '、。，．「」『』（）〔〕［］｛｝〈〉《》【】〝〟‘’“”！？‼⁇⁈⁉・：；…‥―　 ';
+  const SESAME = 'M6.5 2.2C5.3 3 3 4.6 3 6.3C3 7.4 3.9 8 4.7 8C5.7 8 6.4 7.2 6.4 6.1C6.4 4.9 6 3.6 6.5 2.2Z';
+  const dotHtml = (x, y, fs) =>
+    `<svg class="dt" viewBox="0 0 10 10" style="left:${mm(x + fs)};top:${mm(y + fs / 4)};width:${mm(fs / 2)};height:${mm(fs / 2)}"><path d="${SESAME}" fill="#000"/></svg>`;
+
   /** 1行の箱を描く。x は行の左端、top は行頭、fs は字の大きさ（mm） */
   function lineHtml(ln, x, top, fs) {
     let out = '';
@@ -851,13 +859,15 @@
       }
       switch (b.k) {
         case 'c':
-          out += `<span class="k${b.em ? ' em' : ''}" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
+          out += `<span class="k" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
+          if (b.em && !NO_DOT.includes(b.s)) out += dotHtml(x, y, fs);
           break;
         case 'run':
-          out += `<span class="k${b.em ? ' em' : ''}" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
+          out += `<span class="k" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
           break;
         case 'tcy':
           out += `<span class="t" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
+          if (b.em) out += dotHtml(x, y, fs);
           break;
         case 'lat':
           out += `<span class="l" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;

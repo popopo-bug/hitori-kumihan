@@ -337,7 +337,7 @@ dialog.hc-dialog::backdrop { background: rgba(10, 15, 25, 0.45); }
   writing-mode: vertical-rl; text-orientation: mixed; line-height: 1; white-space: pre; width: 1em;
   font-kerning: none; font-variant-ligatures: none; font-feature-settings: normal; letter-spacing: 0;
 }
-.hk-trim .em { -webkit-text-emphasis: filled sesame; text-emphasis: filled sesame; -webkit-text-emphasis-position: over right; text-emphasis-position: over right; }
+.hk-trim .dt { overflow: visible; }
 .hk-trim .t { -webkit-text-combine: horizontal; text-combine-upright: all; height: 1em; text-align: center; }
 .hk-trim .d { width: 0; border-left: 0 solid #000; }
 .hk-trim .ld { width: 0; border-left: 0.35mm dotted #000; }
