@@ -67,6 +67,7 @@
     latin: 'sideways', // sideways | upright
     chapterBreak: 'page', // page | odd | none
     headScale: 1.3,
+    bouten: 'dot', // 傍点の形：dot（・のような丸）| sesame（﹅）| open（﹆）
     title: '',
     author: '',
     titlePage: true,
@@ -832,16 +833,21 @@
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const chars = (s) => Array.from(s || '');
 
-  // 傍点（ゴマ点）。CSS の text-emphasis は点の場所を字の枠の中に取って字を左へ押し出すので使わず、
-  // ルビと同じく行の右（半分の幅）に点を描く。フォントの「﹅」は字形の位置がフォントごとに違う（上に寄る）ので、
-  // ゴマの形を SVG で描いて、字の真横の中央に置く。句読点・かっこには付けない
+  // 傍点。初期の形（dot）は「・」のような丸：ブラウザの丸（text-emphasis: dot）は小さすぎて上に寄るので、
+  // 字の大きさの約5分の1の丸を SVG で描き、字の真横（右の半字分の真ん中）の中央に置く。
+  // ﹅（sesame）・﹆（open）はブラウザの text-emphasis。点の場所0.5字が字の枠の右に取られるので、
+  // 枠の幅を1.5字にして字は左の1字分に置く（kumi.css の .em）。句読点・かっこには付けない
   const NO_DOT = '、。，．「」『』（）〔〕［］｛｝〈〉《》【】〝〟‘’“”！？‼⁇⁈⁉・：；…‥―　 ';
-  const SESAME = 'M6.5 2.2C5.3 3 3 4.6 3 6.3C3 7.4 3.9 8 4.7 8C5.7 8 6.4 7.2 6.4 6.1C6.4 4.9 6 3.6 6.5 2.2Z';
   const dotHtml = (x, y, fs) =>
-    `<svg class="dt" viewBox="0 0 10 10" style="left:${mm(x + fs)};top:${mm(y + fs / 4)};width:${mm(fs / 2)};height:${mm(fs / 2)}"><path d="${SESAME}" fill="#000"/></svg>`;
+    `<svg class="dt" viewBox="0 0 10 10" style="left:${mm(x + fs)};top:${mm(y + fs / 4)};width:${mm(fs / 2)};height:${mm(fs / 2)}"><circle cx="5" cy="5" r="1.9" fill="#000"/></svg>`;
+  /** 傍点のある字（とその点）を描く */
+  function emHtml(cls, x, y, fs, s, bt) {
+    if (bt === 'sesame' || bt === 'open') return `<span class="${cls} em" style="left:${mm(x)};top:${mm(y)}">${esc(s)}</span>`;
+    return `<span class="${cls}" style="left:${mm(x)};top:${mm(y)}">${esc(s)}</span>` + dotHtml(x, y, fs);
+  }
 
   /** 1行の箱を描く。x は行の左端、top は行頭、fs は字の大きさ（mm） */
-  function lineHtml(ln, x, top, fs) {
+  function lineHtml(ln, x, top, fs, bt) {
     let out = '';
     const gapMm = (ln.gap || 0) * fs;
     const list = ln.hang ? ln.b.concat([ln.hang]) : ln.b;
@@ -859,15 +865,15 @@
       }
       switch (b.k) {
         case 'c':
-          out += `<span class="k" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
-          if (b.em && !NO_DOT.includes(b.s)) out += dotHtml(x, y, fs);
+          if (b.em && !NO_DOT.includes(b.s)) out += emHtml('k', x, y, fs, b.s, bt);
+          else out += `<span class="k" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
           break;
         case 'run':
           out += `<span class="k" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
           break;
         case 'tcy':
-          out += `<span class="t" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
-          if (b.em) out += dotHtml(x, y, fs);
+          if (b.em) out += emHtml('t', x, y, fs, b.s, bt);
+          else out += `<span class="t" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
           break;
         case 'lat':
           out += `<span class="l" style="left:${mm(x)};top:${mm(y)}">${esc(b.s)}</span>`;
@@ -911,7 +917,7 @@
       p.cols.forEach((rows, c) => {
         const colTop = bt + (p.full ? 0 : c * (G.colH + G.gapH));
         for (const r of rows) {
-          if (r.kind === 'text') body += lineHtml(r.line, slotX(r.slot), colTop, fs);
+          if (r.kind === 'text') body += lineHtml(r.line, slotX(r.slot), colTop, fs, s.bouten);
           else if (r.kind === 'head') {
             const hf = fs * r.scale;
             const n = r.lines.length;
@@ -919,11 +925,11 @@
             const hp = hf * 1.6;
             r.lines.forEach((ln, i) => {
               const cx = center - (i - (n - 1) / 2) * hp;
-              body += lineHtml(ln, cx - hf / 2, colTop + r.indent * fs, hf);
+              body += lineHtml(ln, cx - hf / 2, colTop + r.indent * fs, hf, s.bouten);
             });
           } else if (r.kind === 'toc') {
             const x = slotX(r.slot);
-            body += lineHtml(r.line, x, colTop, fs);
+            body += lineHtml(r.line, x, colTop, fs, s.bouten);
             const num = String(r.pageNo || '');
             const L = r.L;
             const endY = r.line.len + (r.line.b[0] ? r.line.b[0].y : 0) + (r.cut ? 0 : 0);
@@ -967,7 +973,7 @@
 
     const b = G.bleed;
     return (
-      `<div class="hk-page" data-no="${p.index}" style="width:${mm(G.pageW)};height:${mm(G.pageH)}">` +
+      `<div class="hk-page${s.bouten === 'open' ? ' bt-open' : ''}" data-no="${p.index}" style="width:${mm(G.pageW)};height:${mm(G.pageH)}">` +
       `<div class="hk-trim" style="left:${mm(b)};top:${mm(b)};width:${mm(s.pageW)};height:${mm(s.pageH)};font-size:${mm(fs)}">${body}</div></div>`
     );
   }
@@ -1083,6 +1089,7 @@
     ['num', 'lines', '1ページの行数', { min: 4, max: 40, step: 1 }],
     ['num', 'lineGap', '行間（字）', { min: 0.3, max: 1.5, step: 0.05 }],
     ['select', 'cols', '段組', [[1, '1段'], [2, '2段']]],
+    ['select', 'bouten', '傍点の形', [['dot', '・（小さな丸）'], ['sesame', '﹅（ゴマ）'], ['open', '﹆（白ゴマ）']]],
     ['num', 'colGap', '段と段のあいだ（字）', { min: 1, max: 5, step: 0.5, show: (s) => s.cols === 2 }],
     ['geom'],
     ['sec', '余白と塗り足し'],
