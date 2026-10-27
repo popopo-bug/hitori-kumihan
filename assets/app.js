@@ -1130,6 +1130,9 @@
     ['check', 'hang', '句読点のぶら下げ（、。を行末の外に出す）']
   ];
   const NUM_KEYS = new Set(['cols', 'bleed', 'pad', 'tcyDigits']);
+  // パソコンの書体は、PDFから文字を取り出すと「日」「月」などが康熙部首（見た目が同じ別の字）になる（游明朝で確認）。印刷には影響しない
+  const SYS_FONTS = ['yumin', 'hiramin'];
+  const SYS_FONT_NOTE = 'この書体は、印刷には問題ありませんが、PDFから文字をコピー・検索すると「日」「月」などの漢字が別の字になることがあります。PDFを電子版として配るなら、BIZ UD明朝などの書体がおすすめです。';
 
   // ---------------- 状態 ----------------
   const st = {
@@ -1394,7 +1397,8 @@
     box.innerHTML =
       `<div class="kh-geom-t">版面 ${f(G.blockW)}×${f(G.blockH)}mm ／ 1ページ ${st.s.chars * st.s.cols}字×${st.s.lines}行（約${(st.s.chars * st.s.cols * st.s.lines).toLocaleString()}字）</div>` +
       `<div class="kh-geom-m">天 ${f(m.top)}・地 ${f(m.bottom)}・のど ${f(m.nodo)}・小口 ${f(m.koguchi)} mm</div>` +
-      (G.warnings.length ? `<div class="kh-geom-w">${G.warnings.map(esc).join('<br>')}</div>` : '');
+      (G.warnings.length ? `<div class="kh-geom-w">${G.warnings.map(esc).join('<br>')}</div>` : '') +
+      (SYS_FONTS.includes(st.s.font) ? `<div class="kh-geom-n">${esc(SYS_FONT_NOTE)}</div>` : '');
   }
 
   // ---- 組み直し ----
