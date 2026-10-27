@@ -1089,7 +1089,7 @@
     ['num', 'lines', '1ページの行数', { min: 4, max: 40, step: 1 }],
     ['num', 'lineGap', '行間（字）', { min: 0.3, max: 1.5, step: 0.05 }],
     ['select', 'cols', '段組', [[1, '1段'], [2, '2段']]],
-    ['select', 'bouten', '傍点の形', [['dot', '・（小さな丸）'], ['sesame', '﹅（ゴマ）'], ['open', '﹆（白ゴマ）']]],
+    ['select', 'bouten', '傍点の形', [['dot', '・（丸・Wordやなろうに多い）'], ['sesame', '﹅（ゴマ・市販の本に多い）'], ['open', '﹆（白ゴマ）']]],
     ['num', 'colGap', '段と段のあいだ（字）', { min: 1, max: 5, step: 0.5, show: (s) => s.cols === 2 }],
     ['geom'],
     ['sec', '余白と塗り足し'],
@@ -1293,7 +1293,7 @@
     return `<table class="kh-help-t">
 <tr><th>段落</th><td>1行が1段落。空行はそのまま1行あきます</td></tr>
 <tr><th>ルビ</th><td><code>｜漢字《かんじ》</code> <code>漢字《かんじ》</code> <code>[[rb:漢字 &gt; かんじ]]</code></td></tr>
-<tr><th>傍点</th><td><code>《《ここ》》</code> または <code>｜ここ《・・》</code></td></tr>
+<tr><th>傍点</th><td><code>《《ここ》》</code> または <code>｜ここ《・・》</code>。点の形（・か﹅）は「設定」→「判型と文字」の「傍点の形」で選べます</td></tr>
 <tr><th>章の見出し</th><td><code># 第一章</code>（小見出しは <code>## </code>）、<code>[chapter:第一章]</code></td></tr>
 <tr><th>改ページ</th><td><code>[newpage]</code> または <code>［＃改ページ］</code></td></tr>
 <tr><th>縦中横</th><td>半角の2けたの数字と <code>!?</code> は自動。<code>［＃縦中横］123［＃縦中横終わり］</code></td></tr>
